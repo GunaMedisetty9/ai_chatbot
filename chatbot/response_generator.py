@@ -24,12 +24,9 @@ class ResponseGenerator:
         try:
             if confidence < 0.15:
                 return random.choice(self.fallback_responses)
-
             response = self.find_response(intent)
-
             if response is None:
                 return random.choice(self.fallback_responses)
-
             return str(response)
         except Exception:
             return random.choice(self.fallback_responses)
