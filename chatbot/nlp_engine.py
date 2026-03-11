@@ -1,30 +1,45 @@
-# chatbot/nlp_engine.py
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import re
-import string
+import ssl
 
-# Download required NLTK data
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
-nltk.download('wordnet', quiet=True)
-nltk.download('averaged_perceptron_tagger', quiet=True)
+# Fix SSL certificate issue for NLTK downloads
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+# Download required NLTK data (force download)
+def download_nltk_data():
+    """Download required NLTK data"""
+    resources = ['punkt', 'punkt_tab', 'stopwords', 'wordnet', 'averaged_perceptron_tagger']
+    for resource in resources:
+        try:
+            nltk.download(resource, quiet=True, raise_on_error=False)
+        except:
+            pass
+
+# Download immediately when module loads
+download_nltk_data()
 
 class NLPEngine:
     def __init__(self):
         self.lemmatizer = WordNetLemmatizer()
-        self.stop_words = set(stopwords.words('english'))
+        try:
+            self.stop_words = set(stopwords.words('english'))
+        except:
+            self.stop_words = set()
         
         # Keep some important words that are usually stopwords
         self.important_words = {'not', 'no', 'help', 'can', 'what', 'how', 'why', 'when', 'where'}
         self.stop_words = self.stop_words - self.important_words
     
     def preprocess(self, text):
-        """
-        Preprocess text: lowercase, remove punctuation, tokenize, lemmatize
-        """
+        """Preprocess text: lowercase, remove punctuation, tokenize, lemmatize"""
         # Convert to lowercase
         text = text.lower()
         
@@ -32,13 +47,20 @@ class NLPEngine:
         text = re.sub(r'[^a-zA-Z0-9\s\?\!]', '', text)
         
         # Tokenize
-        tokens = word_tokenize(text)
+        try:
+            tokens = word_tokenize(text)
+        except:
+            # Fallback if tokenization fails
+            tokens = text.split()
         
         # Remove stopwords and lemmatize
         processed_tokens = []
         for token in tokens:
             if token not in self.stop_words and len(token) > 1:
-                lemma = self.lemmatizer.lemmatize(token)
+                try:
+                    lemma = self.lemmatizer.lemmatize(token)
+                except:
+                    lemma = token
                 processed_tokens.append(lemma)
         
         return processed_tokens
@@ -46,7 +68,10 @@ class NLPEngine:
     def get_raw_tokens(self, text):
         """Get raw tokens without heavy preprocessing"""
         text = text.lower()
-        tokens = word_tokenize(text)
+        try:
+            tokens = word_tokenize(text)
+        except:
+            tokens = text.split()
         return tokens
     
     def extract_keywords(self, text, top_n=5):
