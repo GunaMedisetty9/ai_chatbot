@@ -3,94 +3,207 @@
         {
             "tag": "greeting",
             "patterns": [
-                "hi", "hello", "hey", "good morning", "good evening",
-                "what's up", "howdy", "hi there", "greetings"
+                "hi", "hello", "hey", "good morning", "good evening", "good afternoon",
+                "what's up", "howdy", "hi there", "greetings", "hola", "bonjour",
+                "how are you", "how r u", "how ru", "hw r u", "hru", "hr u", "how are u",
+                "how are ya", "how are you doing", "what's good", "sup", "yo", "hey yo",
+                "hey there", "hii", "hello there", "good to see you", "nice to meet you",
+                "greetings friend", "hiya", "hey buddy", "hey mate", "how's it going",
+                "how's it goin", "how goes it", "what's happening", "what's new",
+                "wazzup", "wassup", "yo yo", "heyy", "hi hi", "hello hello"
             ],
             "responses": [
-                "Hello! How can I help you today?",
+                "Hello! How can I help you today? 😊",
                 "Hi there! What can I do for you?",
-                "Hey! Nice to meet you. How can I assist?"
+                "Hey! Nice to meet you. How can I assist?",
+                "I'm doing well, thanks for asking! How can I help you?",
+                "Hello! Great to hear from you. What do you need?"
             ]
         },
         {
             "tag": "goodbye",
             "patterns": [
-                "bye", "goodbye", "see you", "take care", "later",
-                "good night", "see you later", "farewell"
+                "bye", "goodbye", "see you", "take care", "later", "cya", "ttyl",
+                "good night", "see you later", "farewell", "catch you later",
+                "see ya", "talk to you later", "gotta go", "i'm leaving", "bye bye",
+                "see you soon", "until next time", "peace out", "later alligator"
             ],
             "responses": [
-                "Goodbye! Have a great day!",
+                "Goodbye! Have a great day! 👋",
                 "See you later! Take care!",
-                "Bye! Feel free to come back anytime!"
+                "Bye! Feel free to come back anytime!",
+                "Take care! Have a wonderful day ahead!"
             ]
         },
         {
             "tag": "thanks",
             "patterns": [
                 "thanks", "thank you", "appreciate it", "thanks a lot",
-                "thank you so much", "grateful"
+                "thank you so much", "grateful", "thx", "ty", "thank u",
+                "thanks man", "thanks a ton", "much appreciated", "thanks bro",
+                "thank you very much", "thanks for your help", "i appreciate it",
+                "thanks a bunch", "thanks dude", "thnx"
             ],
             "responses": [
-                "You're welcome!",
-                "Happy to help!",
-                "Anytime! Is there anything else?"
+                "You're welcome! Happy to help! 😊",
+                "Happy to help! Is there anything else?",
+                "Anytime! Let me know if you need more help!",
+                "You're very welcome! Glad I could assist!"
             ]
         },
         {
             "tag": "help",
             "patterns": [
-                "help", "help me", "can you help", "assist me",
-                "need assistance", "support", "i need help"
+                "help", "help me", "can you help", "assist me", "need assistance",
+                "support", "i need help", "can you assist", "help please",
+                "i need support", "assistance required", "could you help",
+                "i could use some help", "need help with something",
+                "help me out", "i'm stuck", "i need guidance"
             ],
             "responses": [
-                "Sure! I'm here to help. What do you need?",
+                "Sure! I'm here to help. What do you need? 🤝",
                 "Of course! Tell me what you need assistance with.",
-                "I'd be happy to help! What's on your mind?"
+                "I'd be happy to help! What's on your mind?",
+                "Absolutely! Let me know how I can assist you!"
+            ]
+        },
+        {
+            "tag": "about",
+            "patterns": [
+                "who are you", "what are you", "tell me about yourself",
+                "what can you do", "your capabilities", "introduce yourself",
+                "what is your purpose", "describe yourself", "what do you do",
+                "are you a bot", "are you human", "what kind of ai are you"
+            ],
+            "responses": [
+                "I'm an AI chatbot designed to help you with various queries! 🤖",
+                "I'm a conversational AI assistant. I can chat, answer questions, and help with information.",
+                "I'm your friendly AI assistant! I can chat, answer questions, and help with many topics!",
+                "I'm a smart assistant here to make your life easier! What can I do for you?"
             ]
         },
         {
             "tag": "product_inquiry",
             "patterns": [
-                "tell me about products", "what do you sell",
-                "show me products", "product information",
-                "what products do you have", "product catalog"
+                "tell me about products", "what do you sell", "show me products",
+                "product information", "what products do you have", "product catalog",
+                "list your products", "what items do you have", "show products",
+                "product details", "available products", "what can i buy",
+                "product list", "browse products", "view products", "items for sale",
+                "what goods do you offer", "show me what you have", "product range"
             ],
             "responses": [
-                "We have a wide range of products! What category interests you?",
-                "I can help you find products. What are you looking for?"
+                "We have a wide range of products! What category interests you? 🛍️",
+                "I can help you find products! What are you looking for specifically?",
+                "Sure! We offer many great products. Which type are you interested in?",
+                "Absolutely! We have various products. Tell me what you need!"
             ]
         },
         {
             "tag": "pricing",
             "patterns": [
-                "how much", "price", "cost", "pricing",
-                "what's the price", "how much does it cost"
+                "how much", "price", "cost", "pricing", "what's the price",
+                "how much does it cost", "price range", "cost of", "how many dollars",
+                "price list", "fee", "charges", "expense", "how expensive",
+                "is it cheap", "affordable", "how much is it", "price for",
+                "what is the cost", "tell me the price", "pricing information",
+                "cost breakdown", "how much will it cost", "price tag"
             ],
             "responses": [
-                "I can help with pricing! Which product are you interested in?",
-                "Let me get the pricing information for you. What item?"
+                "I can help with pricing! Which product are you interested in? 💰",
+                "Let me get the pricing information for you. What item?",
+                "Sure! Tell me which product, and I'll check the price for you!",
+                "Of course! Which item would you like to know the price of?"
             ]
         },
         {
             "tag": "order_status",
             "patterns": [
-                "where is my order", "order status", "track order",
-                "shipping status", "delivery status", "when will i receive"
+                "where is my order", "order status", "track order", "shipping status",
+                "delivery status", "when will i receive", "order tracking",
+                "my order", "check order", "order number", "track my package",
+                "where is my package", "delivery date", "shipment status",
+                "order info", "track shipment", "order history", "find my order"
             ],
             "responses": [
-                "I can help track your order. Please provide your order ID.",
-                "Let me check your order status. What's your order number?"
+                "I can help track your order! Please provide your order ID. 📦",
+                "Let me check your order status. What's your order number?",
+                "Sure! Give me your order ID and I'll look it up for you!",
+                "Of course! What's your order number so I can track it?"
             ]
         },
         {
             "tag": "complaint",
             "patterns": [
-                "complaint", "not working", "problem", "issue",
-                "broken", "defective", "unhappy", "disappointed"
+                "complaint", "not working", "problem", "issue", "broken",
+                "defective", "unhappy", "disappointed", "frustrated", "angry",
+                "not satisfied", "bad experience", "something wrong", "help issue",
+                "doesn't work", "stopped working", "damaged", "faulty",
+                "terrible service", "worst experience", "very unhappy",
+                "i'm frustrated", "this is bad", "not good", "issue with"
             ],
             "responses": [
-                "I'm sorry to hear that. Let me help resolve this issue.",
-                "I apologize for the inconvenience. Can you describe the problem?"
+                "I'm sorry to hear that! Let me help resolve this issue. 😔",
+                "I apologize for the inconvenience. Can you describe the problem?",
+                "I'm truly sorry! Let's get this sorted out. Tell me more!",
+                "I understand your frustration. I'm here to help fix this!"
+            ]
+        },
+        {
+            "tag": "hours",
+            "patterns": [
+                "what are your hours", "when are you open", "business hours",
+                "opening hours", "working hours", "operation hours",
+                "hours of operation", "store hours", "are you open now",
+                "what time do you close", "what time do you open", "availability"
+            ],
+            "responses": [
+                "I'm available 24/7 to assist you! 🌙⭐",
+                "As an AI, I'm here around the clock. How can I help?",
+                "I'm online 24 hours a day, 7 days a week! What do you need?"
+            ]
+        },
+        {
+            "tag": "location",
+            "patterns": [
+                "where are you located", "your address", "location",
+                "where is your office", "find you", "physical address",
+                "store location", "where is your store", "office address",
+                "visit you", "come to your office", "directions to your store"
+            ],
+            "responses": [
+                "I'm a virtual assistant, so I exist in the cloud! ☁️",
+                "I'm available wherever you have internet access! 🌍",
+                "I don't have a physical location, but I'm always here online to help!"
+            ]
+        },
+        {
+            "tag": "weather",
+            "patterns": [
+                "what's the weather", "weather today", "is it raining",
+                "temperature", "forecast", "weather forecast", "how's the weather",
+                "weather outside", "check weather", "current weather",
+                "weather report", "rain today", "sunny or cloudy"
+            ],
+            "responses": [
+                "I don't have access to real-time weather data, but you can check a weather service! 🌤️",
+                "For current weather, I'd recommend checking a weather app or website! ☀️🌧️",
+                "I can't check live weather, but I hope it's nice where you are!"
+            ]
+        },
+        {
+            "tag": "joke",
+            "patterns": [
+                "tell me a joke", "joke", "make me laugh", "say something funny",
+                "humor me", "i want to laugh", "funny", "entertain me",
+                "tell a joke", "crack a joke", "something funny", "lol",
+                "haha", "lmao", "funny story", "joke please"
+            ],
+            "responses": [
+                "Why don't scientists trust atoms? Because they make up everything! 😄",
+                "What do you call a fake noodle? An impasta! 🍝😂",
+                "Why did the scarecrow win an award? He was outstanding in his field! 🌾🏆",
+                "Here's one: Why don't eggs tell jokes? They'd crack each other up! 🥚😄"
             ]
         }
     ]
