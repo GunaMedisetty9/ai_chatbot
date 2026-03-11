@@ -1,0 +1,97 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "hi", "hello", "hey", "good morning", "good evening",
+                "what's up", "howdy", "hi there", "greetings"
+            ],
+            "responses": [
+                "Hello! How can I help you today?",
+                "Hi there! What can I do for you?",
+                "Hey! Nice to meet you. How can I assist?"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "bye", "goodbye", "see you", "take care", "later",
+                "good night", "see you later", "farewell"
+            ],
+            "responses": [
+                "Goodbye! Have a great day!",
+                "See you later! Take care!",
+                "Bye! Feel free to come back anytime!"
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "thanks", "thank you", "appreciate it", "thanks a lot",
+                "thank you so much", "grateful"
+            ],
+            "responses": [
+                "You're welcome!",
+                "Happy to help!",
+                "Anytime! Is there anything else?"
+            ]
+        },
+        {
+            "tag": "help",
+            "patterns": [
+                "help", "help me", "can you help", "assist me",
+                "need assistance", "support", "i need help"
+            ],
+            "responses": [
+                "Sure! I'm here to help. What do you need?",
+                "Of course! Tell me what you need assistance with.",
+                "I'd be happy to help! What's on your mind?"
+            ]
+        },
+        {
+            "tag": "product_inquiry",
+            "patterns": [
+                "tell me about products", "what do you sell",
+                "show me products", "product information",
+                "what products do you have", "product catalog"
+            ],
+            "responses": [
+                "We have a wide range of products! What category interests you?",
+                "I can help you find products. What are you looking for?"
+            ]
+        },
+        {
+            "tag": "pricing",
+            "patterns": [
+                "how much", "price", "cost", "pricing",
+                "what's the price", "how much does it cost"
+            ],
+            "responses": [
+                "I can help with pricing! Which product are you interested in?",
+                "Let me get the pricing information for you. What item?"
+            ]
+        },
+        {
+            "tag": "order_status",
+            "patterns": [
+                "where is my order", "order status", "track order",
+                "shipping status", "delivery status", "when will i receive"
+            ],
+            "responses": [
+                "I can help track your order. Please provide your order ID.",
+                "Let me check your order status. What's your order number?"
+            ]
+        },
+        {
+            "tag": "complaint",
+            "patterns": [
+                "complaint", "not working", "problem", "issue",
+                "broken", "defective", "unhappy", "disappointed"
+            ],
+            "responses": [
+                "I'm sorry to hear that. Let me help resolve this issue.",
+                "I apologize for the inconvenience. Can you describe the problem?"
+            ]
+        }
+    ]
+}
