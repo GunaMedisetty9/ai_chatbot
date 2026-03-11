@@ -1,97 +1,93 @@
-# chatbot/entity_extractor.py
-import re
-from datetime import datetime
-import spacy
+from textblob import TextBlob
 
-class EntityExtractor:
+class SentimentAnalyzer:
     def __init__(self):
-        # Try to load spaCy model, fallback to basic extraction
-        try:
-            self.nlp = spacy.load("en_core_web_sm")
-            self.use_spacy = True
-        except:
-            self.use_spacy = False
-            print("SpaCy model not found. Using basic entity extraction.")
+        # Emotion keywords for enhanced detection
+        self.emotion_keywords = {
+            'happy': ['happy', 'glad', 'joyful', 'excited', 'delighted', 'pleased', 'great', 'awesome', 'amazing', 'wonderful', 'love', 'fantastic'],
+            'sad': ['sad', 'unhappy', 'depressed', 'down', 'disappointed', 'upset', 'sorry', 'miss'],
+            'angry': ['angry', 'furious', 'mad', 'annoyed', 'frustrated', 'irritated', 'hate', 'terrible', 'worst'],
+            'fear': ['scared', 'afraid', 'worried', 'anxious', 'nervous', 'terrified'],
+            'surprised': ['surprised', 'amazed', 'shocked', 'astonished', 'wow'],
+            'neutral': ['okay', 'fine', 'alright', 'normal', 'average']
+        }
         
-        # Custom entity patterns
-        self.patterns = {
-            'email': r'[\w\.-]+@[\w\.-]+\.\w+',
-            'phone': r'[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}',
-            'order_id': r'[A-Z]{2,3}[-]?\d{6,10}',
-            'url': r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+',
-            'date': r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}',
-            'time': r'\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?',
-            'money': r'\$\d+(?:\.\d{2})?|\d+\s*(?:dollars|USD)',
-            'percentage': r'\d+(?:\.\d+)?%'
+        self.intensifiers = ['very', 'really', 'extremely', 'absolutely', 'totally', 'completely', 'so']
+        self.negations = ['not', "n't", 'no', 'never', 'neither', 'nobody', 'nothing', "don't", "doesn't", "didn't"]
+    
+    def analyze(self, text):
+        """Perform complete sentiment analysis"""
+        blob = TextBlob(text)
+        polarity = blob.sentiment.polarity
+        subjectivity = blob.sentiment.subjectivity
+        
+        if polarity > 0.1:
+            sentiment = 'positive'
+        elif polarity < -0.1:
+            sentiment = 'negative'
+        else:
+            sentiment = 'neutral'
+        
+        emotions = self._detect_emotions(text.lower())
+        has_intensifier = self._check_intensifiers(text.lower())
+        
+        confidence = abs(polarity)
+        if has_intensifier:
+            confidence = min(confidence * 1.2, 1.0)
+        
+        return {
+            'sentiment': sentiment,
+            'polarity': round(polarity, 3),
+            'subjectivity': round(subjectivity, 3),
+            'confidence': round(confidence, 3),
+            'emotions': emotions,
+            'has_intensifier': has_intensifier
         }
     
-    def extract_entities(self, text):
-        """Extract all entities from text"""
-        entities = {}
+    def _detect_emotions(self, text):
+        """Detect specific emotions in text"""
+        detected_emotions = []
         
-        # Extract custom pattern entities
-        entities['custom'] = self._extract_custom_entities(text)
+        has_negation = any(neg in text for neg in self.negations)
         
-        # Extract spaCy entities if available
-        if self.use_spacy:
-            entities['spacy'] = self._extract_spacy_entities(text)
+        for emotion, keywords in self.emotion_keywords.items():
+            for keyword in keywords:
+                if keyword in text:
+                    if has_negation and emotion in ['happy', 'sad', 'angry']:
+                        opposite = {'happy': 'sad', 'sad': 'happy', 'angry': 'calm'}
+                        detected_emotions.append(opposite.get(emotion, emotion))
+                    else:
+                        detected_emotions.append(emotion)
+                    break
         
-        # Flatten and combine entities
-        combined_entities = self._combine_entities(entities)
-        
-        return combined_entities
+        return list(set(detected_emotions)) if detected_emotions else ['neutral']
     
-    def _extract_custom_entities(self, text):
-        """Extract entities using regex patterns"""
-        extracted = {}
-        
-        for entity_type, pattern in self.patterns.items():
-            matches = re.findall(pattern, text, re.IGNORECASE)
-            if matches:
-                extracted[entity_type] = matches
-        
-        return extracted
+    def _check_intensifiers(self, text):
+        """Check if text contains intensifiers"""
+        words = text.split()
+        return any(intensifier in words for intensifier in self.intensifiers)
     
-    def _extract_spacy_entities(self, text):
-        """Extract entities using spaCy NER"""
-        doc = self.nlp(text)
-        entities = {}
-        
-        for ent in doc.ents:
-            entity_type = ent.label_.lower()
-            if entity_type not in entities:
-                entities[entity_type] = []
-            entities[entity_type].append(ent.text)
-        
-        return entities
+    def get_sentiment_label(self, text):
+        """Get just the sentiment label"""
+        analysis = self.analyze(text)
+        return analysis['sentiment']
     
-    def _combine_entities(self, entities):
-        """Combine all extracted entities"""
-        combined = {}
-        
-        for source, entity_dict in entities.items():
-            for entity_type, values in entity_dict.items():
-                if entity_type not in combined:
-                    combined[entity_type] = []
-                combined[entity_type].extend(values)
-        
-        # Remove duplicates
-        for entity_type in combined:
-            combined[entity_type] = list(set(combined[entity_type]))
-        
-        return combined
+    def get_emotion(self, text):
+        """Get the primary emotion"""
+        analysis = self.analyze(text)
+        emotions = analysis['emotions']
+        return emotions[0] if emotions else 'neutral'
     
-    def extract_specific_entity(self, text, entity_type):
-        """Extract a specific type of entity"""
-        all_entities = self.extract_entities(text)
-        return all_entities.get(entity_type, [])
-    
-    def get_entity_summary(self, text):
-        """Get a summary of all entities found"""
-        entities = self.extract_entities(text)
-        summary = {
-            'total_entities': sum(len(v) for v in entities.values()),
-            'entity_types': list(entities.keys()),
-            'entities': entities
-        }
-        return summary
+    def adjust_response_tone(self, sentiment_result):
+        """Suggest response tone based on sentiment"""
+        sentiment = sentiment_result['sentiment']
+        emotions = sentiment_result['emotions']
+        
+        if sentiment == 'negative' or 'angry' in emotions or 'frustrated' in emotions:
+            return 'empathetic'
+        elif sentiment == 'positive' or 'happy' in emotions:
+            return 'enthusiastic'
+        elif 'sad' in emotions:
+            return 'supportive'
+        else:
+            return 'neutral'
