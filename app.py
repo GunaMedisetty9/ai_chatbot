@@ -417,12 +417,8 @@ class Chatbot:
 def init_chatbot():
     return Chatbot()
 
-@st.cache_resource
-def init_database():
-    return ChatDatabase()
-
 chatbot = init_chatbot()
-database = init_database()
+database = chatbot.database
 
 if 'session_id' not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
